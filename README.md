@@ -19,7 +19,7 @@ For example:stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
 
 ## No “shorting”—you must buy before you sell. You may not buy and sell in the same time step (at least 1 minute must pass).
 
-Please clone the current repo and push the aanswer to branch algorithm
+    Please clone the current repo and push the answer to branch algorithm
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -110,3 +110,6 @@ Please clone the current repo and push the aanswer to branch algorithm
      <linkId>00440051940048202401</linkId>
      <idi>44123440</id>
     </registerResponse>
+
+
+    Please clone the current repo and push the answer to branch ArchitectureTask
