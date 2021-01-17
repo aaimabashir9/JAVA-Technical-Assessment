@@ -17,8 +17,6 @@ For example:stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
     # get_max_profit(stock_prices_yesterday)
    returns 6 (buying for $5 and selling for $11)
 
-## No “shorting”—you must buy before you sell. You may not buy and sell in the same time step (at least 1 minute must pass).
-
     Please clone the current repo and push the answer to branch algorithm
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
