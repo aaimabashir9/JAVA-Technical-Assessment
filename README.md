@@ -29,7 +29,7 @@ Please clone the current repo and push the aanswer to branch algorithm
     Implement a full module that send a request and receive a respone. try to implement all the layers [Controller - Service - Repository, ...]
 
 ## Task descriptioin
- Create a spring boot applicatiion that can construct a request and send it to an external Rest API and receive the respone as below,
+ Create a spring boot application that can construct a request and send it to an external Rest API and receive the respone as below,
 
      Please use SOAP not REST
 
