@@ -27,7 +27,7 @@ For example:stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
     Implement a full module that send a request and receive a respone. try to implement all the layers [Controller - Service - Repository, ...]
 
 ## Task descriptioin
- Create a spring boot application that can construct a request and send it to an external Rest API and receive the respone as below. Also store the response into a DB preferred MangoDB/Postgress DB.
+ Create a spring boot application that can construct a request and send it to an external API and receive the respone as below. Also store the response into a DB preferred MangoDB/Postgress DB.
 
      Please use SOAP not REST
 
