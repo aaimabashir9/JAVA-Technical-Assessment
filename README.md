@@ -21,93 +21,45 @@ For example:stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Part2 Architecture Task
+# Part2 API Task
 
 # Task Title
-    Implement a full module that send a request and receive a respone. try to implement all the layers [Controller - Service - Repository, ...]
+    Implement an API that fullfil the business requirments for topuping a wallet.
 
 ## Task descriptioin
- Create a spring boot application that can construct a request and send it to an external API and receive the respone as below. Also store the response into a DB preferred MangoDB/Postgress DB.
-
-     Please use SOAP not REST
-
-# XML request:
-    <?xml version="1.0" encoding="UTF-8"?>
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
-       xmlns:com="http://common.ws.xyz.company.com/"
-       xmlns:cus="http://common.ws.xyz.company.com/">
-    <soapenv:Header>
-       <com:identity>
-          <com:appID>0000000000000000000</com:appID>
-          <com:instName>acmesdsdco</com:instName>
-       </com:identity>
-    </soapenv:Header>
-    <soapenv:Body>
-       <cus:register>
-          < cus:clientFields>
-             <cus:bank_client_number>1234545545455</cus:bank_client_number>
-             <cus:member_ica>123456</cus:member_ica>
-             <cus:accept_email_message_switch>Y</cus:accept_email_message_switch>
-             <cus:account_holder_address_line_1>168 Dongal Building</cus:account_holder_address_line_1>
-             <cus:account_holder_address_line_2>Heuston South Quarter</cus:account_holder_address_line_2>
-             <cus:account_holder_address_line_3>Apartmernt 12-D</cus:account_holder_address_line_3>
-             <cus:account_holder_address_line_4>Attn: Building Manager</cus:account_holder_address_line_4>
-             <cus:birth_date>1981-01-18</cus:birth_date>
-             <cus:business_phone_number>3143451243</cus:business_phone_number>
-             <cus:city_name>St. Louis</cus:city_name>
-             <cus:country_code>USA</cus:country_code>
-             <cus:email_address>keith.jackson@test.com</cus:email_address>
-             <cus:employee_switch>N</cus:employee_switch>
-             <cus:fax_phone_number>3143451200</cus:fax_phone_number>
-             <cus:generic_identification>Yellow</cus:generic_identification>
-             <cus:generic_identification_description>Favorite Color</cus:generic_identification_description>
-             <cus:home_phone_number>6363000966</cus:home_phone_number>
-             <cus:language_code>en_US</cus:language_code>
-             <cus:mobile_phone_number>3146160501</cus:mobile_phone_number>
-             <cus:mother_maiden_name>Dolly</cus:mother_maiden_name>
-             <cus:postal_code>63043</cus:postal_code>
-             <cus:primary_account_holder_first_name>Keith</cus:primary_account_holder_first_name>
-             <cus:primary_account_holder_last_name>Jackson</cus:primary_account_holder_last_name>
-             <cus:ssn_last_four>1001</cus:ssn_last_four>
-             <cus:state>MO</cus:state>
-             <cus:user_defined_1>User 1</cus:user_defined_1>
-             <cus:user_defined_2>User 2</cus:user_defined_2>
-             <cus:user_defined_3>User 3</cus:user_defined_3>
-             <cus:user_defined_4>User 4</cus:user_defined_4>
-             <cus:vip_indicator>N</cus:vip_indicator>
-          </cus:clientFields>        
-          <cus:clientAccountFields>
-             <cus:bank_account_number>5420000000001234000</cus:bank_account_number>
-             <cus:account_status_code>1</cus:account_status_code>
-             <cus:bank_product_code>0123450100</cus:bank_product_code>
-             <cus:program_identifier>ACMECORR</cus:program_identifier>
-             <cus:account_opened_date>20181101</cus:account_opened_date>
-             <cus:accrue_points_sw>Y</cus:accrue_points_sw>
-             <cus:dda_account_number>5420000000008888000</cus:dda_account_number>
-             <cus:enrollment_date>20181201</cus:enrollment_date>
-             <cus:ghost_account_number>5420000000009999000</cus:ghost_account_number>
-             <cus:household_eligibility_token>00000000000000304412 </cus:household_eligibility_token>
-             <cus:partner_id>SPECIAL_PARTNER</cus:partner_id>
-             <cus:primary_account_switch>Y</cus:primary_account_switch>
-             <cus:receive_statements>Y</cus:receive_statements>
-             <cus:reporting_category>SPECIAL_USAGE</cus:reporting_category>
-             <cus:user_defined_1>Custom Data 1</cus:user_defined_1>
-             <cus:user_defined_2>Custom Data 2</cus:user_defined_2>
-             <cus:user_defined_3>Custom Data 3</cus:user_defined_3>
-             <cus:user_defined_4>Custom Data 4</cus:user_defined_4>
-             <cus:user_defined_5>Custom Data 5</cus:user_defined_5>
-             <cus:user_defined_6>Custom Data 6</cus:user_defined_6>
-             <cus:user_defined_7>Custom Data 7</cus:user_defined_7>
-             <cus:user_defined_8>Custom Data 8</cus:user_defined_8>
-          </cus:clientAccountFields>        
-       </cus:register>
-    </soapenv:Body>
-# XML response:
-
-    <registerResponse xmlns=http://xyz.company/ xmlns:com="http://xyz.company/">
-     <linkId>00440051940048202401</linkId>
-     <idi>44123440</id>
-    </registerResponse>
-
-
+ - Create a spring boot application with default controller to receive the below request and do the validation needed then save it into a DB before sending the respoonse back.
+ - DB preferred MangoDB/Postgress DB.
+ 
+## Topup request
+   - topup request must contain the below information,
+      - amount       (Decimal - Mandatory).  Topup amount
+      - currency     (String - Mandatory).   Amount currency  
+      - charge_id    (String - Mandatory).   assume amount is already deducted from the card holder on a previouse charge 
+      - customer     (Object - Mandatory).   Customer who topup his wallet 
+          - id        (String - Mandatory)
+          - wallet_id (String - Mandatory).  may be customer has multiple wallets, so he must define the wallet id to be filled  
+      - fees         (Object - Optional).    any fees can be taken by the merchant for providing this service to ther customer
+          - amount    (Decimal - Mandatory).  
+          - currency  (Decimal - Mandatory)
+      - meta         (Object - Optional).     any extra information can be passed here. 
+## Topuup response
+   - topup response must contain the below information,
+     - id (unique ID generated from the DB)
+     - created         (timestamp)
+     - status          (String)    can be one of this list (INITIATED-SUCCESS-FAILED)  
+     - amount          (decimal)
+     - currency        (String)
+     - charge_id       (String)
+     - customer        (Object)
+        - id           (String)
+        - wallet_id    (String)
+     - fees (Object)
+        - amount       (Decimal)
+        - currency     (Decimal)
+     - meta            (Object)
+     -  balance        (Object)    Balance changes after the topup.    
+       - net_available (decimal)   
+       - net_amount    (decimal)
+       - total_amount (decimal)
+        
     Please clone the current repo and push the answer to branch ArchitectureTask
