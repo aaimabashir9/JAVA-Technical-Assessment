@@ -17,7 +17,7 @@ For example:stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
     # get_max_profit(stock_prices_yesterday)
    returns 6 (buying for $5 and selling for $11)
 
-    Please clone the current repo and push the answer to branch algorithm
+    Do not push your code here, instead push to your github and invite me.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -62,4 +62,4 @@ For example:stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
        - net_amount    (decimal)
        - total_amount (decimal)
         
-    Please clone the current repo and push the answer to branch ArchitectureTask
+    Do not push your code here, instead push to your github and invite me.
