@@ -1,0 +1,29 @@
+package com.assessment.payment.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
+@Entity
+@Table
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Balance {
+  @Id
+  @Column(name = "id", columnDefinition = "serial")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonIgnore
+  private Integer id;
+
+  @Column(name = "total_amount")
+  @NotNull(message = "totalAmount can not be null")
+  private Double totalAmount;
+}
