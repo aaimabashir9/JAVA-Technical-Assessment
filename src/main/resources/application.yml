@@ -1,0 +1,25 @@
+server:
+  port: 81
+
+app:
+  errorPath: ./logs
+
+user:
+  timezone: Asia/Kuwait
+
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  jackson:
+    time-zone: Asia/Kuwait
+  application:
+    name: tap-payment
+  datasource:
+    platform: postgres

@@ -1,0 +1,10 @@
+# application-dev.yml
+
+logging:
+  path: ./logs
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment
+    username: postgres
+    password: temp/123

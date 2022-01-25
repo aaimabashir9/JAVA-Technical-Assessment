@@ -1,0 +1,5 @@
+# application-prod.yml
+
+logging:
+  path: ./logs
+
