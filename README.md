@@ -1,49 +1,98 @@
-# engineers-assignment
---------------------------------------------------------------------------------------
+# Topup Wallet API
 
-# API Task
+# Technologies used
 
-# Task Title
-    Implement an API that fullfil the business requirments for topuping a wallet.
+ - [**Spring Boot**](https://spring.io/projects/spring-boot/)
+> Web framework to be used in API.
+ - [**Hibernate**](https://hibernate.org/)
+> ORM based on repository/entity pattern. Also used for validations/relationships with other entities
+ - [**Project Loombok**](https://projectlombok.org/)
+> Boilerplate code reduction using annotations for common java patterns
+ - [**postgresql**](https://www.postgresql.org/)
+> Data storage used to store and index payment data
+ - [**Docker**](https://www.docker.com/)
+> Used for local development setup and well as running all the services combined. Can also help in production deployment and autoscaling
+# Concepts Implemented
+ - Request Validation
+ - Entities Relationships
+ - Postgresql Row level locking
 
-## Task descriptioin
- - Create a spring boot application with default controller to receive the below request and do the validation needed then save it into a DB before sending the respoonse back.
- - DB preferred MangoDB/Postgress DB.
- 
-## Topup request
-   - topup request must contain the below information,
-   
-| Field               | Type     | Existence  |  Description |
-|---                  |---       |---         |---           |
-|  amount             | Decimal  | Mandatory  | Topup amount  |
-|  currency           | String   | Mandatory  | Amount currency | 
-|  charge_id          | String   | Mandatory  | Assume amount is already deducted from the card holder on a previouse charge |
-|  customer           | Object   | Mandatory  | Customer who topup his wallet|
-|  customer.id        | String   | Mandatory  | custome id |
-|  customer.wallet_id | String   | Mandatory  | In case of customer has multiple wallets, so he must define the wallet id to be filled   |
-|  fees               | Object   | Optional   | Any fees can be taken by the merchant for giving service to ther customer   |
-|  fees.amount        | Decimal  | Mandatory  | Fees amouunt  |
-|  fees.curency       | String   | Mandatory  | Fees currency   |
+# Local setup and running
+Install docker on your system
+ - **MacOS**
+> Install homebrew package manager
+> ```sh
+> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+> ```
+Install docker desktop and git with brew cask
+> ```sh
+> brew install git
+> brew install --cask docker
+> ```
 
+- **Windows**
+> Install/Update windows package manager winget (Update app installer package from windows store)
 
-## Topuup response
-   - topup response must contain the below information,
-   
-| Field                     | Type     | Existence  |  Description |
-|---                        |---       |---         |---           |
-|  id                       | UUID     | Mandatory  | unique ID generated each for each request  |
-|  created                  | timestamp| Mandatory  |              |
-|  status                   | String   | Mandatory  | can be one of this list (INITIATED-SUCCESS-FAILED)  |
-|  amount                   | Decimal  | Mandatory  |   |
-|  currency                 | String   | Mandatory  |  | 
-|  charge_id                | String   | Mandatory  |  |
-|  customer                 | Object   | Mandatory  | |
-|  customer.id              | String   | Mandatory  |   |
-|  customer.wallet_id       | String   | Mandatory  |   |
-|  fees                     | Object   | Optional   |   |
-|  fees.amount              | Decimal  | Mandatory  |   |
-|  fees.curency             | String   | Mandatory  |   |
-|  balance                  | Object   | Mandatory  |    |
-|  balance.total_amount     | Decimal  | Mandatory  |  increase current value with  (amount - fees )  |
+Install docker desktop and gitusing winget
+> ```sh
+> winget install -e --id Git.Git
+> winget install -e --id Docker.DockerDesktop
+> ```
 
-    Do not push your code here, instead push to your github and invite me.
+- **Ubuntu**
+
+Install docker and git using apt package manager
+> ```sh
+> sudo apt purge -y docker docker-engine docker.io containerd runc
+> sudo apt install -y \
+> apt-transport-https \
+> ca-certificates \
+> curl \
+> gnupg-agent \
+> software-properties-common
+> curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+> echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+> sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io git
+> sudo systemctl restart docker
+> sudo systemctl enable docker
+> sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+> sudo chmod +x /usr/local/bin/docker-compose
+> sudo groupadd docker
+> sudo usermod -aG docker $USER
+> newgrp docker
+> ```
+
+Fetch code using git
+```sh
+git clone -j8 https://github.com/aaimabashir9/JAVA-Technical-Assessment.git
+```
+Move to project directory
+```sh
+cd JAVA-Technical-Assessment
+```
+Run project
+```sh
+docker-compose up
+```
+
+Check api response through curl (or postman)
+```sh
+
+curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"amount":100.0,
+"currency":"USD",
+"charge_id":"123",
+"customer":{
+  "id":1,
+  "wallet_id":1
+},
+"fee":{
+  "amount":1.0,
+  "currency":"USD"
+}
+}
+'
+```
