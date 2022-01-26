@@ -23,22 +23,30 @@
 - Unit tests using Junit
 
 # Local setup and running
+
 Install docker on your system
+
 - **MacOS**
+
 > Install homebrew package manager
+>
 > ```sh
 > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 > ```
+
 Install docker desktop and git with brew cask
+
 > ```sh
 > brew install git
 > brew install --cask docker
 > ```
 
 - **Windows**
+
 > Install/Update windows package manager winget (Update app installer package from windows store)
 
 Install docker desktop and gitusing winget
+
 > ```sh
 > winget install -e --id Git.Git
 > winget install -e --id Docker.DockerDesktop
@@ -47,6 +55,7 @@ Install docker desktop and gitusing winget
 - **Ubuntu**
 
 Install docker and git using apt package manager
+
 > ```sh
 > sudo apt purge -y docker docker-engine docker.io containerd runc
 > sudo apt install -y \
@@ -68,20 +77,26 @@ Install docker and git using apt package manager
 > ```
 
 Fetch code using git
+
 ```sh
 git clone -j8 https://github.com/aaimabashir9/JAVA-Technical-Assessment.git
 ```
+
 Move to project directory
+
 ```sh
 cd JAVA-Technical-Assessment
 ```
+
 Run project
+
 ```sh
 docker-compose up
 ```
 
 **Check API response through curl (or postman)**
 Success Request:
+
 ```sh
 
 curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
@@ -102,7 +117,9 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 }
 '
 ```
+
 **Response:**
+
 ```json
 {
   "id": "30eefdc7-f608-4a66-ba85-780b1754c8c5",
@@ -126,7 +143,9 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 ```
 
 ![src/main/resources/static/jsonResponseSuccess.png](src/main/resources/static/jsonResponseSuccess.png)
+
 Bad Request: with bad currency: 123456
+
 ```sh
 curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 --header 'Accept: application/json' \
