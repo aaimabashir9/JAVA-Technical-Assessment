@@ -103,6 +103,27 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 '
 ```
 **Response:**
+```json
+{
+  "id": "30eefdc7-f608-4a66-ba85-780b1754c8c5",
+  "created": "2022-01-26T13:23:22.200+03:00",
+  "status": "SUCCESS",
+  "amount": 100,
+  "currency": "USD",
+  "chargeId": "123",
+  "customer": {
+    "id": 1,
+    "wallet_id": 1
+  },
+  "fee": {
+    "amount": 1,
+    "currency": "USD"
+  },
+  "balance": {
+    "totalAmount": 199
+  }
+}
+```
 
 ![src/main/resources/static/jsonResponseSuccess.png](src/main/resources/static/jsonResponseSuccess.png)
 Bad Request: with bad currency: 123456
@@ -126,5 +147,14 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 '
 ```
 **Response:**
+```json
+{
+  "timestamp": "2022-01-26",
+  "status": 400,
+  "errors": [
+    "currency code length should be 3"
+  ]
+}
+```
 
 ![src/main/resources/static/jsonResponseBadRequest.png](src/main/resources/static/jsonResponseBadRequest.png)

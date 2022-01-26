@@ -3,8 +3,12 @@ package com.assessment.payment.request;
 import com.assessment.payment.entity.Customer;
 import com.assessment.payment.entity.Fee;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMin;
@@ -16,6 +20,8 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentRequest {
 
   @DecimalMin(value = "0.0", inclusive = false, message = "Amount should be greater than 0.0")
