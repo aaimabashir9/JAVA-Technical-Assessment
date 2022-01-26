@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
 import java.util.Optional;
-
+/**
+ * Created by Aaima Bashir on 1/25/2022
+ */
 @Repository
 public interface BalanceRepository extends JpaRepository<Balance, Integer> {
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<Balance> findById(Integer balanceId);
+  @Lock(LockModeType.PESSIMISTIC_WRITE)
+  Optional<Balance> findById(Integer balanceId);
 }

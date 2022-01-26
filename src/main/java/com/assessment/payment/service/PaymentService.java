@@ -22,6 +22,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+/**
+ * Created by Aaima Bashir on 1/26/2022
+ */
 
 @Service
 @Transactional
@@ -59,8 +62,7 @@ public class PaymentService {
   @Transactional
   public Balance updateBalance(Fee fee, Wallet wallet) {
 
-    Optional<Balance> balanceResponse = balanceRepository.findById(wallet.getId());
-    Balance balance = balanceResponse.get();
+    Balance balance = balanceRepository.findById(wallet.getId()).get();
 
     Double netWalletChange = balance.getTotalAmount() - fee.getAmount();
     balance.setTotalAmount(balance.getTotalAmount() + netWalletChange);

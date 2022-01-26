@@ -1,6 +1,8 @@
 package com.assessment.payment.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,10 +14,16 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Created by Aaima Bashir on 1/24/2022
+ */
+
 @Entity
 @Table
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Payment {
 
   @Id

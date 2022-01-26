@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 import java.util.UUID;
+/**
+ * Created by Aaima Bashir on 1/24/2022
+ */
 
 @Data
 public class PaymentResponse {

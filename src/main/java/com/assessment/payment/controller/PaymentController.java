@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+/**
+ * Created by Aaima Bashir on 1/24/2022
+ */
+
 @RestController
 @Validated
 @RequestMapping(value = "/payment")
@@ -25,7 +29,7 @@ public class PaymentController {
       value = "/topupwallet",
       consumes = {MediaType.APPLICATION_JSON_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<Payment> transaction(@Valid @RequestBody PaymentRequest paymentRequest) {
+  public ResponseEntity<Payment> topUpWallet(@Valid @RequestBody PaymentRequest paymentRequest) {
     return paymentService.topUpWallet(paymentRequest);
   }
 }

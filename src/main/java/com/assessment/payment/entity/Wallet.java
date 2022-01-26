@@ -1,6 +1,5 @@
 package com.assessment.payment.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+/**
+ * Created by Aaima Bashir on 1/24/2022
+ */
 
 @Entity
 @Table

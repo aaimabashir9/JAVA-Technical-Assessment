@@ -10,6 +10,10 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Created by Aaima Bashir on 1/24/2022
+ */
+
 @Entity
 @Table
 @Data
