@@ -1,25 +1,30 @@
+
 # Topup Wallet API
 
 # Technologies used
 
- - [**Spring Boot**](https://spring.io/projects/spring-boot/)
+- [**Spring Boot**](https://spring.io/projects/spring-boot/)
 > Web framework to be used in API.
- - [**Hibernate**](https://hibernate.org/)
+- [**Hibernate**](https://hibernate.org/)
 > ORM based on repository/entity pattern. Also used for validations/relationships with other entities
- - [**Project Loombok**](https://projectlombok.org/)
+- [**Project Loombok**](https://projectlombok.org/)
 > Boilerplate code reduction using annotations for common java patterns
- - [**postgresql**](https://www.postgresql.org/)
+- [**postgresql**](https://www.postgresql.org/)
 > Data storage used to store and index payment data
- - [**Docker**](https://www.docker.com/)
+- [**Docker**](https://www.docker.com/)
 > Used for local development setup and well as running all the services combined. Can also help in production deployment and autoscaling
-# Concepts Implemented
- - Request Validation
- - Entities Relationships
- - Postgresql Row level locking
+# Implementation Checklist
+- API Request Validation
+- Hibernate ORM
+- JPA Relationships
+- Builder Pattern
+- Exception Handler
+- Postgresql Row level locking
+- Unit tests using Junit
 
 # Local setup and running
 Install docker on your system
- - **MacOS**
+- **MacOS**
 > Install homebrew package manager
 > ```sh
 > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -75,7 +80,8 @@ Run project
 docker-compose up
 ```
 
-Check api response through curl (or postman)
+**Check API response through curl (or postman)**
+Success Request:
 ```sh
 
 curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
@@ -96,3 +102,27 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 }
 '
 ```
+**Response:**
+![src/main/resources/static/jsonResponseSuccess.png](src/main/resources/static/jsonResponseSuccess.png)
+Bad Request: with bad currency: 123456
+```sh
+curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"amount":100.0,
+"currency":"123456",
+"charge_id":"123",
+"customer":{
+  "id":1,
+  "wallet_id":1
+},
+"fee":{
+  "amount":1.0,
+  "currency":"USD"
+}
+}
+'
+```
+**Response:**
+![src/main/resources/static/jsonResponseBadRequest.png](src/main/resources/static/jsonResponseBadRequest.png)
