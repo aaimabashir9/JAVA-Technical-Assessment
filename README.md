@@ -4,20 +4,20 @@
 # Technologies used
 
 - [**Spring Boot**](https://spring.io/projects/spring-boot/)
-> Web framework to be used in API.
+> REST API architecture used.
 - [**Hibernate**](https://hibernate.org/)
-> ORM based on repository/entity pattern. Also used for validations/relationships with other entities
+> ORM based on repository/entity pattern. Also used for relationships with other entities
 - [**Project Loombok**](https://projectlombok.org/)
 > Boilerplate code reduction using annotations for common java patterns
 - [**postgresql**](https://www.postgresql.org/)
-> Data storage used to store and index payment data
+> Database used to store the payment data
 - [**Docker**](https://www.docker.com/)
-> Used for local development setup and well as running all the services combined. Can also help in production deployment and autoscaling
+> Used for local development setup.
 # Implementation Checklist
-- API Request Validation
-- Hibernate ORM
+- API Request Validation:
+  - using javax.validation
+  - custom business cases validation
 - JPA Relationships
-- Builder Pattern
 - Exception Handler
 - Postgresql Row level locking
 - Unit tests using Junit
@@ -142,9 +142,7 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 }
 ```
 
-![src/main/resources/static/jsonResponseSuccess.png](src/main/resources/static/jsonResponseSuccess.png)
-
-Bad Request: with bad currency: 123456
+Bad Request: currency [123456]
 
 ```sh
 curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
@@ -175,5 +173,3 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
   ]
 }
 ```
-
-![src/main/resources/static/jsonResponseBadRequest.png](src/main/resources/static/jsonResponseBadRequest.png)
