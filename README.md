@@ -103,6 +103,7 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 '
 ```
 **Response:**
+
 ![src/main/resources/static/jsonResponseSuccess.png](src/main/resources/static/jsonResponseSuccess.png)
 Bad Request: with bad currency: 123456
 ```sh
@@ -125,4 +126,5 @@ curl --location --request POST 'http://localhost:8080/payment/topupwallet' \
 '
 ```
 **Response:**
+
 ![src/main/resources/static/jsonResponseBadRequest.png](src/main/resources/static/jsonResponseBadRequest.png)

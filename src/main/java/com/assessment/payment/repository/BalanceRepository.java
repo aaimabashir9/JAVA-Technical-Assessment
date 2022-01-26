@@ -15,4 +15,6 @@ import java.util.Optional;
 public interface BalanceRepository extends JpaRepository<Balance, Integer> {
   @Lock(LockModeType.PESSIMISTIC_WRITE)
   Optional<Balance> findById(Integer balanceId);
+
+  Optional<Balance> findFirstByOrderByIdDesc();
 }
