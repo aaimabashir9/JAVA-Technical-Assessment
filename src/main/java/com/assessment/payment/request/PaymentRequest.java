@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 /**
  * Created by Aaima Bashir on 1/24/2022
  */
