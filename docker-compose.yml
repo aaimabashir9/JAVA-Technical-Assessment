@@ -1,5 +1,3 @@
-version: '3.7'
-
 # To access data postgres, and app writes within container from host machine
 volumes:
   postgres_data: {}
