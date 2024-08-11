@@ -8,6 +8,10 @@ user:
   timezone: Asia/Kuwait
 
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment
+    username: postgres
+    password: password
   jpa:
     generate-ddl: true
     hibernate:
@@ -21,5 +25,12 @@ spring:
     time-zone: Asia/Kuwait
   application:
     name: tap-payment
-  datasource:
-    platform: postgres
+  sql:
+    init:
+      platform: postgres
+
+# application-dev.yml
+
+logging:
+  file:
+    path: ./logs

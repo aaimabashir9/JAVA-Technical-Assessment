@@ -6,8 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -24,11 +23,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@RegisterReflectionForBinding({UUID[].class})
 public class Payment {
-
   @Id
-  @GeneratedValue(generator = "UUID")
-  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+  @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "id", updatable = false, nullable = false)
   private UUID id;
 
@@ -36,12 +34,8 @@ public class Payment {
   @NotBlank
   private String status;
 
-  @Column(
-      name = "created",
-      insertable = false,
-      updatable = false,
+  @Column(name = "created", insertable = false, updatable = false,
       columnDefinition = "timestamp default current_timestamp")
-  @Temporal(TemporalType.TIMESTAMP)
   @CreationTimestamp
   private Date created;
 

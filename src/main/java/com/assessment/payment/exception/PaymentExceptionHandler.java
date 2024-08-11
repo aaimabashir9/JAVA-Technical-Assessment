@@ -1,9 +1,9 @@
 package com.assessment.payment.exception;
 
-import org.springframework.http.HttpHeaders;
+// import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+// import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -11,9 +11,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import java.time.LocalDate;
+// import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
+// import java.util.stream.Collectors;
 /**
  * Created by Aaima Bashir on 1/26/2022
  */
@@ -35,7 +35,7 @@ public class PaymentExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException ex) {
     List<String> errors = new ArrayList<>();
 
-    for (ConstraintViolation constraint : ex.getConstraintViolations()) {
+    for (ConstraintViolation<?> constraint : ex.getConstraintViolations()) {
       errors.add(
           constraint.getRootBeanClass().getSimpleName()
               + " ["
@@ -48,23 +48,23 @@ public class PaymentExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
   }
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(
-      MethodArgumentNotValidException ex,
-      HttpHeaders headers,
-      HttpStatus status,
-      WebRequest request) {
+  // @ExceptionHandler(MethodArgumentNotValidException.class)
+  // protected ResponseEntity<?> handleMethodArgumentNotValid(
+  //     MethodArgumentNotValidException ex,
+  //     HttpHeaders headers,
+  //     HttpStatus status,
+  //     WebRequest request) {
 
-    Map<String, Object> body = new LinkedHashMap<>();
-    body.put("timestamp", LocalDate.now());
-    body.put("status", status.value());
+  //   Map<String, Object> body = new LinkedHashMap<>();
+  //   body.put("timestamp", LocalDate.now());
+  //   body.put("status", status.value());
 
-    List<String> errors =
-        ex.getBindingResult().getFieldErrors().stream()
-            .map(x -> x.getDefaultMessage())
-            .collect(Collectors.toList());
+  //   List<String> errors =
+  //       ex.getBindingResult().getFieldErrors().stream()
+  //           .map(x -> x.getDefaultMessage())
+  //           .collect(Collectors.toList());
 
-    body.put("errors", errors);
-    return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-  }
+  //   body.put("errors", errors);
+  //   return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+  // }
 }

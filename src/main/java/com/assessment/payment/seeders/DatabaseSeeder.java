@@ -2,7 +2,6 @@ package com.assessment.payment.seeders;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,22 +15,21 @@ import com.assessment.payment.entity.Customer;
 import com.assessment.payment.entity.Wallet;
 import com.assessment.payment.repository.BalanceRepository;
 import com.assessment.payment.repository.CustomerRepository;
-import com.assessment.payment.repository.FeeRepository;
 import com.assessment.payment.repository.WalletRepository;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by smatt on 29/06/2017.
  */
 @Component
+@Slf4j
 public class DatabaseSeeder {
 
-    private Logger logger = LoggerFactory.getLogger(DatabaseSeeder.class);
     private BalanceRepository balanceRepository;
     private WalletRepository walletRepository;
     private CustomerRepository customerRepository;
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public DatabaseSeeder(
             BalanceRepository balanceRepository,
             WalletRepository walletRepository,
@@ -56,9 +54,9 @@ public class DatabaseSeeder {
         if (rs.size() <= 0) {
             Balance b = new Balance(1, 100.0);
             balanceRepository.save(b);
-            logger.info("Balance table seeded");
+            log.info("Balance table seeded");
         } else {
-            logger.trace("Balance Seeding Not Required");
+            log.trace("Balance Seeding Not Required");
         }
     }
 
@@ -70,13 +68,13 @@ public class DatabaseSeeder {
             if (b.isPresent()) {
                 Wallet w = new Wallet(1, b.get(), "USD");
                 walletRepository.save(w);
-                logger.info("Wallet table seeded");
+                log.info("Wallet table seeded");
             }
             else {
-                logger.trace("Balance not found. Cannot create wallet.");
+                log.trace("Balance not found. Cannot create wallet.");
             }
         } else {
-            logger.trace("Wallet Seeding Not Required");
+            log.trace("Wallet Seeding Not Required");
         }
     }
 
@@ -88,13 +86,13 @@ public class DatabaseSeeder {
             if (w.isPresent()) {
                 Customer c = new Customer(1, 1, "John Doe");
                 customerRepository.save(c);
-                logger.info("Customer table seeded");
+                log.info("Customer table seeded");
             }
             else {
-                logger.trace("Wallet not found. Cannot create customer");
+                log.trace("Wallet not found. Cannot create customer");
             }
         } else {
-            logger.trace("Customer Seeding Not Required");
+            log.trace("Customer Seeding Not Required");
         }
     }
 }

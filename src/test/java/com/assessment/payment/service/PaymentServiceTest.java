@@ -7,6 +7,7 @@ import com.assessment.payment.repository.FeeRepository;
 import com.assessment.payment.repository.PaymentRepository;
 import com.assessment.payment.repository.WalletRepository;
 import com.assessment.payment.request.PaymentRequest;
+import com.assessment.payment.response.PaymentResponse;
 import com.assessment.payment.util.PaymentDataProvider;
 import com.assessment.payment.validator.PaymentValidator;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +48,7 @@ public class PaymentServiceTest {
 
   @BeforeEach
   void initUseCase() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
     paymentDataProvider = new PaymentDataProvider();
   }
 
@@ -74,7 +75,7 @@ public class PaymentServiceTest {
 
     doReturn(paymentDataProvider.getPayment()).when(paymentRepository).save(any(Payment.class));
 
-    ResponseEntity<Payment> paymentResponseEntity =
+    ResponseEntity<PaymentResponse> paymentResponseEntity =
         paymentService.topUpWallet(paymentDataProvider.getValidPaymentRequest());
     assertNotNull(paymentResponseEntity);
     assertEquals(HttpStatus.OK, paymentResponseEntity.getStatusCode());

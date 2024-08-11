@@ -1,7 +1,8 @@
 # application-dev.yml
 
 logging:
-  path: ./logs
+  file:
+    path: ./logs
 
 spring:
   datasource:

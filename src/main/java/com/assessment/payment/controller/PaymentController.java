@@ -1,7 +1,7 @@
 package com.assessment.payment.controller;
 
-import com.assessment.payment.entity.Payment;
 import com.assessment.payment.request.PaymentRequest;
+import com.assessment.payment.response.PaymentResponse;
 import com.assessment.payment.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,7 +29,7 @@ public class PaymentController {
       value = "/topupwallet",
       consumes = {MediaType.APPLICATION_JSON_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<Payment> topUpWallet(@Valid @RequestBody PaymentRequest paymentRequest) {
+  public ResponseEntity<PaymentResponse> topUpWallet(@Valid @RequestBody PaymentRequest paymentRequest) {
     return paymentService.topUpWallet(paymentRequest);
   }
 }

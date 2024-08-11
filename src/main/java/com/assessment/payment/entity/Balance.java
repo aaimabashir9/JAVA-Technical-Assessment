@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 /**
  * Created by Aaima Bashir on 1/24/2022

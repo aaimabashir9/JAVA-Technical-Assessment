@@ -38,7 +38,7 @@ public class PaymentService {
 
   @Autowired private PaymentValidator paymentValidator;
 
-  public ResponseEntity<Payment> topUpWallet(final PaymentRequest paymentRequest) {
+  public ResponseEntity<PaymentResponse> topUpWallet(final PaymentRequest paymentRequest) {
 
     List<String> errors = paymentValidator.validatePaymentRequest(paymentRequest);
     if (!errors.isEmpty()) {
@@ -54,7 +54,7 @@ public class PaymentService {
     BeanUtils.copyProperties(successPayment, paymentResponse);
     paymentResponse.setBalance(balance);
 
-    return new ResponseEntity(paymentResponse, HttpStatus.OK);
+    return new ResponseEntity<PaymentResponse>(paymentResponse, HttpStatus.OK);
   }
 
   @Transactional
