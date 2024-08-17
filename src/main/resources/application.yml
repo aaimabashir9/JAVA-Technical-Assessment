@@ -23,6 +23,9 @@ spring:
           time_zone: UTC
   jackson:
     time-zone: Asia/Kuwait
+  threads:
+    virtual:
+      enabled: true
   application:
     name: tap-payment
   sql:

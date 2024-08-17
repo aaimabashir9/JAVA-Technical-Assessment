@@ -14,6 +14,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-payment}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    network_mode: "host"
     ports:
       - "5432:5432"
 
@@ -28,6 +29,7 @@ services:
     volumes:
        - pgadmin_data:/var/lib/pgadmin
        - ./servers.json:/pgadmin4/servers.json
+    network_mode: "host"
     ports:
       - "1234:1234"
     restart: always
@@ -45,8 +47,10 @@ services:
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-postgres}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-password}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      NEW_RELIC_LISENCE_KEY: ${NEW_RELIC_LISENCE_KEY}
     depends_on:
       - postgres
+    network_mode: "host"
     ports:
       - "8080:8080"
     volumes:
