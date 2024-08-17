@@ -3,3 +3,6 @@
 logging:
   file:
     path: ./logs
+apm:
+  newrelic:
+    license: ${NEW_RELIC_LISENCE_KEY}

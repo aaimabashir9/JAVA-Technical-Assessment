@@ -1,7 +1,5 @@
 package com.assessment.payment.seeders;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,7 +17,7 @@ import com.assessment.payment.repository.WalletRepository;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Created by smatt on 29/06/2017.
+ * Created by aaimabashir9 on 14/08/2024.
  */
 @Component
 @Slf4j
