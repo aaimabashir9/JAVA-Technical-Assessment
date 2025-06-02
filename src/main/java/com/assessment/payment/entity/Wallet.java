@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotNull;
 @Builder
 public class Wallet {
   @Id
-  @Column(name = "id", columnDefinition = "serial")
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 

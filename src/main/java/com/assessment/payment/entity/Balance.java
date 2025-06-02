@@ -21,7 +21,7 @@ import jakarta.validation.constraints.NotNull;
 @AllArgsConstructor
 public class Balance {
   @Id
-  @Column(name = "id", columnDefinition = "serial")
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonIgnore
   private Integer id;

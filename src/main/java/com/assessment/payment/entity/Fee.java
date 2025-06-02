@@ -22,7 +22,7 @@ import jakarta.validation.constraints.NotNull;
 @AllArgsConstructor
 public class Fee {
   @Id
-  @Column(name = "id", columnDefinition = "serial")
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonIgnore
   private Integer id;
