@@ -1,0 +1,36 @@
+# Enable Spring Boot Native Image build using GraalVM
+ARG JAVA_OS_VERSION="-alpine"
+ARG JAVA_VERSION=21
+
+# --- Stage 1: Build Native Image ---
+FROM ghcr.io/graalvm/native-image-community:${JAVA_VERSION} AS native-builder
+
+RUN microdnf install findutils zlib
+
+WORKDIR /app
+
+# Copy Gradle wrapper and project files
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+COPY src src
+
+# Build the native image (skip tests for speed)
+RUN ./gradlew nativeCompile --no-daemon --stacktrace -x test
+
+# --- Stage 2: Create Minimal Image ---
+FROM gcr.io/distroless/base-debian12:latest
+WORKDIR /app
+
+# required by lots of packages - e.g. six, numpy, wsgi
+COPY --from=native-builder /lib64/libz.so.* /lib/
+
+# Copy the native executable from the builder stage
+COPY --from=native-builder /app/build/native/nativeCompile/payment .
+
+# Expose the port your Spring Boot app runs on
+EXPOSE 8080
+
+# Run the native executable
+ENTRYPOINT ["/app/payment"]
