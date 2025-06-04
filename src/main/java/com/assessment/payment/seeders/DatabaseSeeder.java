@@ -52,7 +52,8 @@ public class DatabaseSeeder {
         String sql = "SELECT * FROM balance b LIMIT 1";
         List<Balance> rs = jdbcTemplate.query(sql, (resultSet, rowNum) -> null);
         if (rs.size() <= 0) {
-            Balance b = new Balance(1, 100.0);
+            Balance b = new Balance();
+            b.setTotalAmount(100.0);
             balanceRepository.save(b);
             log.info("Balance table seeded");
         } else {
@@ -66,7 +67,9 @@ public class DatabaseSeeder {
         Optional<Balance> b = balanceRepository.findFirstByOrderByIdDesc();
         if (rs.size() <= 0) {
             if (b.isPresent()) {
-                Wallet w = new Wallet(1, b.get(), "USD");
+                Wallet w = new Wallet();
+                w.setBalance(b.get());
+                w.setCurrency("USD");
                 walletRepository.save(w);
                 log.info("Wallet table seeded");
             }
@@ -84,7 +87,9 @@ public class DatabaseSeeder {
         Optional<Wallet> w = walletRepository.findFirstByOrderByIdDesc();
         if (rs.size() <= 0) {
             if (w.isPresent()) {
-                Customer c = new Customer(1, 1, "John Doe");
+                Customer c = new Customer();
+                c.setWalletId(w.get().getId());
+                c.setName("John Doe");
                 customerRepository.save(c);
                 log.info("Customer table seeded");
             }

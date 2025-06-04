@@ -18,7 +18,7 @@ public class TaskExecutorConfig {
     private Boolean virtualThreadsEnabled;
 
     @Bean
-    TaskExecutor applicationTaskExecutor() {
+    TaskExecutor taskExecutor() {
         if(virtualThreadsEnabled) {
             var executor = new SimpleAsyncTaskExecutor();
             executor.setThreadNamePrefix("VirtualTask-");
