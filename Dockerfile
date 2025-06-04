@@ -5,7 +5,7 @@ ARG JAVA_VERSION=21
 # --- Stage 1: Fetch Dependencies ---
 # Use an official Gradle image that includes a JDK.
 # Choose a version that matches your project's requirements.
-FROM gradle:8.14.1-jdk${JAVA_VERSION}${JAVA_OS_VERSION} AS deps
+FROM gradle:8.14.1-jdk${JAVA_VERSION}${JAVA_OS_VERSION} AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -24,7 +24,7 @@ COPY settings.gradle.kts .
 # The `--build-cache` option can speed up subsequent builds if you have a shared build cache.
 # The `dependencies` task (or `assemble --no-daemon --stacktrace -x test` or similar that resolves dependencies)
 # will download all necessary dependencies.
-RUN gradle dependencies --no-daemon --stacktrace || true
+# RUN gradle dependencies --no-daemon --stacktrace || true
 # The `|| true` is a common pattern to ensure this layer completes even if there are
 # minor warnings or if the `dependencies` task itself doesn't "succeed" in a way Docker expects,
 # as long as the dependencies are actually downloaded.
@@ -33,24 +33,24 @@ RUN gradle dependencies --no-daemon --stacktrace || true
 
 # --- Stage 2: Build Project ---
 # Use the same Gradle image or a compatible one.
-FROM gradle:8.14.1-jdk${JAVA_VERSION}${JAVA_OS_VERSION} AS builder
+# FROM gradle:8.14.1-jdk${JAVA_VERSION}${JAVA_OS_VERSION} AS builder
 
 # Set the working directory
-WORKDIR /app
+# WORKDIR /app
 
 # Copy downloaded dependencies from the 'deps' stage.
 # This ensures we don't re-download them.
-COPY --from=deps /app /app
+# COPY --from=deps /app /app
 # Specifically, Gradle stores dependencies in /home/gradle/.gradle by default in the container.
 # So, we copy the .gradle cache from the deps stage.
-COPY --from=deps /home/gradle/.gradle /home/gradle/.gradle
+# COPY --from=deps /home/gradle/.gradle /home/gradle/.gradle
 
 # Copy the rest of your application's source code
 COPY src ./src
 
 # Build the application, creating the executable JAR.
 # Skip tests during the Docker build for faster builds; run tests in your CI pipeline.
-RUN gradle bootJar --no-daemon --offline --stacktrace -x test
+RUN gradle bootJar --no-daemon --stacktrace -x test
 # The `bootJar` task is specific to Spring Boot. If you're using a different task to build your JAR,
 # replace `bootJar` with the appropriate task (e.g., `jar` or `assemble`).
 
