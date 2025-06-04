@@ -3,6 +3,7 @@ package com.assessment.payment.seeders;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class DatabaseSeeder {
     }
 
     @EventListener
+    @Async
     public void seed(ContextRefreshedEvent event) {
         seedBalanceTable();
         seedWalletTable();
