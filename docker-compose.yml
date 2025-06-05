@@ -2,9 +2,6 @@
 volumes:
   postgres_data: {}
   pgadmin_data: {}
-  hyper_db: {}
-  ch_data: {}
-  ch_logs: {}
 
 services:
   postgres:
@@ -41,19 +38,6 @@ services:
     ports:
       - "1234:1234"
     restart: always
-
-  # modify command to mount paths
-  clickstack:
-    image: docker.hyperdx.io/hyperdx/hyperdx-all-in-one:latest
-    ports:
-      - "8081:8080"
-      - "4317:4317"
-      - "4318:4318"
-    volumes:
-      - hyper_db:/data/db
-      - ch_data:/var/lib/clickhouse
-      - ch_logs:/var/log/clickhouse-server
-    network_mode: host
 
   app:
     stdin_open: true # docker run -i
