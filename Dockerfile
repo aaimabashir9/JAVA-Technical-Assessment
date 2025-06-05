@@ -80,5 +80,5 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "application.jar"]
 
 # Optional: Add a healthcheck (requires Spring Boot Actuator)
-# HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-#   CMD curl -f http://localhost:8080/actuator/health || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/actuator/health || exit 1

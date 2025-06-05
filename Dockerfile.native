@@ -34,3 +34,7 @@ EXPOSE 8080
 
 # Run the native executable
 ENTRYPOINT ["/app/payment"]
+
+# Optional: Add a healthcheck (requires Spring Boot Actuator)
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/actuator/health || exit 1
