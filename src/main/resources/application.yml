@@ -38,3 +38,15 @@ logging:
     path: ./logs
     error:
       file: ./logs/error.log
+
+# OpenTelemetry
+management:
+  observations:
+    annotations:
+      enabled: true
+  info:
+    os:
+      enabled: true
+  tracing:
+    sampling:
+      probability: 1.0

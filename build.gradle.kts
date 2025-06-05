@@ -17,7 +17,9 @@ repositories {
 }
 
 dependencies {
-	implementation("com.newrelic.telemetry:micrometer-registry-new-relic:0.10.0")
+	implementation("io.micrometer:micrometer-registry-otlp") // For OpenTelemetry metrics
+	implementation("io.micrometer:micrometer-tracing-bridge-otel") // For OpenTelemetry tracing
+	implementation("io.opentelemetry:opentelemetry-exporter-otlp")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
