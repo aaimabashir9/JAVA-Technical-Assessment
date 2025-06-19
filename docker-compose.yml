@@ -2,6 +2,7 @@
 volumes:
   postgres_data: {}
   pgadmin_data: {}
+  redis_data: {}
 
 services:
   postgres:
@@ -14,11 +15,61 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-payment}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    network_mode: "host"
+    # network_mode: "host"
     ports:
       - "5432:5432"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: unless-stopped
+    # network_mode: "host"
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:-password}"]
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-password}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    # Note: Redis does not support healthchecks in the same way as other services.
+    # Instead, we can use a simple command to check if Redis is running.
+    # The healthcheck will ping Redis to ensure it's responsive.
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-password}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka:
+    image: apache/kafka-native:latest
+    container_name: kafka
+    ports:
+      - 9092:9092
+    restart: unless-stopped
+    # network_mode: "host"
+    environment:
+      KAFKA_ENABLE_KRAFT: yes
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:9092,EXTERNAL://127.0.0.1:9094
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_NUM_PARTITIONS: 3
+    healthcheck:
+      test: ["CMD", "kafka-topics.sh", "--bootstrap-server", "localhost:9092", "--list"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -34,7 +85,7 @@ services:
     volumes:
        - pgadmin_data:/var/lib/pgadmin
        - ./servers.json:/pgadmin4/servers.json
-    network_mode: "host"
+    # network_mode: "host"
     ports:
       - "1234:1234"
     restart: always
@@ -55,7 +106,7 @@ services:
       NEW_RELIC_LISENCE_KEY: ${NEW_RELIC_LISENCE_KEY}
     depends_on:
       - postgres
-    network_mode: "host"
+    # network_mode: "host"
     ports:
       - "8080:8080"
     volumes:
