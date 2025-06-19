@@ -37,5 +37,8 @@ out/
 ### VS Code ###
 .vscode/
 
+### Zed Editor ###
+.zed/
+
 ### Envrionment Variables ###
 .env*
